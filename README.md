@@ -1,5 +1,7 @@
 # PS5 UART Error Code Decoder
 
+Human Slop polished with AI Slop
+
 This repository contains two main components for working with PS5 UART error codes:
 
 1. **Pi Pico UF2 Firmware**  
