@@ -213,7 +213,7 @@ def _decode_err_code(err_code_hex): # Removed self
         msg_text = 'Drive Dead Notify Timeout'
     elif err_code_hex[0:8] == '80000009':
         prefix = "(Common) "
-        msg_text = 'AC Detect CHECK PSU' # Your updated message
+        msg_text = 'AC Detect CHECK PSU' 
     elif err_code_hex[0:8] == '8000000A':
         prefix = "(CRITICAL) "
         msg_text = 'VRM HOT Fatal'
@@ -243,7 +243,7 @@ def _decode_err_code(err_code_hex): # Removed self
     
     elif err_code_hex[0:8] == '80810001':
         prefix = "(CRITICAL) "
-        msg_text = 'PSQ Pre_Post Fail' # Simplified your example
+        msg_text = 'PSQ Pre_Post Fail'
     elif err_code_hex[0:8] == '80810002':
         msg_text = 'Power Seq: NVS Access Error'
     elif err_code_hex[0:8] == '80810013':
@@ -376,7 +376,7 @@ def _decode_err_code(err_code_hex): # Removed self
         msg_text = 'Main SoC Access Error (I2C)'
     elif err_code_hex[0:4] == 'C002':
         prefix = "(Common) "
-        msg_text = 'SoC thermal sensor issue' # Your updated message
+        msg_text = 'SoC thermal sensor issue' 
     elif err_code_hex[0:4] == 'C003':
         msg_text = 'Main SoC Access Error (SB-RMI)'
     elif err_code_hex[0:4] == 'C00B':
@@ -424,7 +424,6 @@ def _decode_pw_state(pw_state_hex): # Removed self
     try:
         if not (len(pw_state_hex) == 8 and all(c in '0123456789abcdefABCDEF' for c in pw_state_hex)):
             return "Invalid PwState Hex"
-        # ... (rest of your _decode_pw_state logic, ensuring it doesn't use self) ...
         msg1 = '        '
         host_os_state_code = pw_state_hex[2:4].upper()
         if host_os_state_code == '00': msg1 = 'SysReady:'
@@ -494,7 +493,7 @@ def convert_to_celsius(hex_value): # Removed self
     except (ValueError, TypeError):
         return "Invalid Hex Temp"
 
-def _decode_seq_no(seq_no_hex): # Removed self (this is the correct one, remove the duplicate)
+def _decode_seq_no(seq_no_hex): 
     """Decodes sequence number hex using the SEQ_DATABASE."""
     if seq_no_hex == 'N/A' or not seq_no_hex:
         return "N/A"
