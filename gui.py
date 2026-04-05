@@ -12,36 +12,25 @@ import queue
 import os
 import sys
 
-# Attempt to import Pillow for image handling
 try:
     from PIL import Image, ImageTk
     PIL_AVAILABLE = True
 except ImportError:
     PIL_AVAILABLE = False
-    # This print statement will appear in the console when gui.py is loaded
-    # if Pillow is not available.
     print("Pillow library (PIL) not found. Image display will be disabled. Install with: pip install Pillow")
 
-# Import functions from our other modules
+
 import decoders
 import error_databases # Assuming error_databases.py contains cod3r_database
 
-# Set working directory to the script's directory
-# This is important for finding resources like images in the 'src' subdirectory.
 if getattr(sys, 'frozen', False):
     # If the program is frozen (like with PyInstaller), use this path:
     application_path = os.path.dirname(sys.executable)
 else:
     application_path = os.path.dirname(os.path.abspath(__file__))
 
-# We don't os.chdir() here as it's better to construct full paths to resources.
-# application_path will be used for that.
 
 class UartTerminalGUI:
-    # Constants like TIME_ZERO and SEQ_DATABASE are now in decoders.py
-    # and will be accessed via the decoders module if needed directly here,
-    # or indirectly through the decoder functions.
-
     def __init__(self, master):
         self.master = master
         master.title("UART Terminal & Error Log Parser")
@@ -59,7 +48,7 @@ class UartTerminalGUI:
         self.sending_errlogs_active = False
         self.current_errlog_index_for_sequence = 0
 
-        # To store PhotoImage objects and prevent garbage collection
+
         self.image_references = {} # Initialize as an instance variable
 
         self.create_gui_elements()
@@ -129,7 +118,6 @@ class UartTerminalGUI:
 
 
     def create_gui_elements(self):
-        # --- Connection Setup Section ---
         conn_section_frame = ttk.Frame(self.master, style="TFrame", padding=(10,5,10,0))
         conn_section_frame.pack(fill='x', pady=(10,0))
         ttk.Label(conn_section_frame, text="CONNECTION SETUP", style="Header.TLabel").pack(fill='x')
@@ -651,11 +639,6 @@ class UartTerminalGUI:
                 r += 1
                 continue
 
-
-
-
-
-            # Normal handling for other fields
             raw_val = record_data.get(key, 'N/A')
             dec_val_str = dec_fn(raw_val) if dec_fn and raw_val != 'N/A' else ("N/A" if dec_fn else "")
             lbl_fnt, lbl_fg, val_fnt, dec_fnt, dec_fg = (self.font_family,8,"bold"), self.fg_text, ("Segoe UI Emoji",10), (self.font_family,10,"bold"), self.fg_text
@@ -671,7 +654,6 @@ class UartTerminalGUI:
                 ttk.Label(container,text=dec_val_str,font=dec_fnt,foreground=cur_fg,wraplength=350).grid(row=r,column=2,padx=(0,5),pady=6,sticky="w")
             r += 1
         
-        # --- Add Error Code Specific Image / Default Image ---
         if PIL_AVAILABLE:
             err_code_val = record_data.get('Code', '')
             image_to_load = None
