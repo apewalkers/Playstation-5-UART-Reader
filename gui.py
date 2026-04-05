@@ -547,11 +547,11 @@ class UartTerminalGUI:
             self.listbox.insert(tk.END, " | ".join(filter(None, listbox_entry_parts)))
 
             item_index = self.listbox.size() - 1; current_item_color = default_fg; colored = False
-            # Simplified coloring logic for brevity in this example, use your full logic
+            
             if raw_code.startswith("8080") and len(raw_code) == 8: current_item_color = self.critical_error_color; colored = True
             elif raw_code.startswith("C0020303"): current_item_color = "#C5FC00"; colored = True # Lime Green
             elif raw_code.startswith("8081"): current_item_color = self.critical_error_color; colored = True
-            # ... (add more of your specific coloring rules)
+           
             elif raw_code.startswith("80000009"): current_item_color = "#00FC00"; colored = True # Bright Green
 
             if colored: self.listbox.itemconfig(item_index, {'fg': current_item_color})
@@ -975,7 +975,6 @@ The CH341A typically has a mode selection jumper (often labeled P/S - Programmer
              except tk.TclError: pass 
 
     # --- Decoder Functions ---
-    # (Your extensive decoder functions: _decode_rtc, _decode_err_code, etc. are now called via 'decoders' module)
     # The actual implementations are in decoders.py
 
     def _decode_rtc(self, rtc_hex):
